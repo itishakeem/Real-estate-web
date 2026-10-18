@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Falcon Ventures"
+description = "A premium real-estate and investment website concept for Falcon Ventures Pvt. Ltd. in Lahore, featuring demo property listings, filters, property details, company information, and direct WhatsApp inquiries."
+version = "1.0.0"
+id = "artifacts/falcon-ventures"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24520
+
+[services.development]
+run = "pnpm --filter @workspace/falcon-ventures run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/falcon-ventures", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/falcon-ventures/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24520"
+BASE_PATH = "/"
